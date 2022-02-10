@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Break</title>
+  
+    <style>
+        *{
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+body{
+    background: url('../img/cover.jpg') no-repeat;
+    background-size: cover;
+}
+
+.login-form{
+    width: 350px;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    color:#fff;
+}
+
+.login-form h1{
+    font-size: 40px;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 40px 0;
+    color: rgb(29, 83, 83);
+}
+
+.login-form p{
+    font-size: 20px;
+    margin: 15px;
+    
+}
+
+.login-form input{
+    font-size: 16px;
+    width: 100%;
+    padding: 15px 10px;
+    border: 0;
+    outline: none;
+    border-radius: 5px;
+}
+
+.login-form button{
+    font-size: 18px;
+    font-weight: bold;
+    margin: 20px 0;
+    padding: 10px 15px;
+    width: 50%;
+    border-radius: 5px;
+}
+    </style>
+</head>
+<body>
+    <div class="login-form">
+        <h1>Let's Get You Suited Up</h1>
+        <form action='/signup' method="post">
+            <p>First Name</p>
+            <input id="firstName" type='text' name='first_name' placeholder="First Name" value= '' required>
+            <p>Last Name</p>
+            <input id ='lastName' type='text' name='last_name' placeholder="Last Name" value= '' required>
+            <p>User Name</p>
+            <input  id='userName' type='text' name='user' placeholder="User Name" value= '' required>
+            <p>Password</p>
+           
+        </form>
+        <input id='password'type='text' name='password' placeholder="Password" value= '' required>
+        <button type='button' id='signUp' onclick="location.href = 'http://localhost:4000/chat.html'">Sign Up</button>
+    </div>
+</body>
+<script src = "/socket.io/socket.io.js"></script>
+<script>
+    const info = io();
+    function sendPackage(){
+
+
+        // if (document.getElementById("firstName").value.length == 0 || document.getElementById("lastName").value.length == 0 || document.getElementById("userName").value.length == 0 || document.getElementById("password").value.length == 0) {
+        //     alert("empty")
+        // } else {
+           // location.href = 'http://localhost:4000/chat.html'
+            info.emit('payload', document.getElementById('password').value)//{firstName: document.getElementById('firstName').value, lastName: document.getElementById('lastName').value, userName: document.getElementById('userName').value, password: document.getElementById('password').value})
+        }
+        console.log(document.getElementById('firstName').value)
+    //}
+
+    
+        
+      
+</script>
+</html>

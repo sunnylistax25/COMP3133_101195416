@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World</title>
+</head>
+
+<body>
+
+    <div id = "error-container"></div>
+    <input id = 'name' type = 'text' name = 'name' value= ''
+     placeholder="Enter your name">
+     <button type="button" name = "button" onclick="setUsername()">
+    Send
+    </button>
+    <br/>
+    <label for="room">Choose your Group</label>
+  <select name="room" id="room">
+    <option value="Covid19">Covid19</option>
+    <option value="Java">Java</option>
+    <option value="Python">Python</option>
+  </select>
+     <button type="button" name = "cars" onclick="joinRoom()">
+    Join Room
+    </button>
+    <br/>
+    <input id = 'message' type = 'text' name = 'message' value= ''
+     placeholder="Enter message to send">
+     <button type="button" name = "message" onclick="sendMessage()">
+    Send MEssage
+    </button>
+
+    <div id='message-container'></div>
+</body>
+
+<script src = "/socket.io/socket.io.js"></script>
+<script>
+     const client =io()
+
+    client.on('welcome', (data)=>{
+        console.log(data)
+        document.getElementById('message-container').innerHTML += '<div>' + data + '</div>'
+    })
+
+    client.on('newMessage', (message)=>{
+        document.getElementById('message-container').innerHTML += '<div>' + message + '</div>'
+    })
+    function setUsername(){
+        client.emit('newUser',document.getElementById('name').value)
+    }
+    function joinRoom(){
+        client.emit('joinroom',document.getElementById('room').value)
+    }
+    function sendMessage(){
+        client.emit('message',{value:document.getElementById('message').value, roomName: document.getElementById('room').value})
+        document.getElementById('message').value = ''
+        
+    }
+</script>
+</html>
